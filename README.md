@@ -6,5 +6,5 @@ and processes weather data from a range of RS232/485 ascii/ModBus sensors (e.g. 
 data to various services e.g. Wx Underground, AWS IoT, Corlysis (InfluxDB/Grafana) and Met Office WOW. 
 
 Each sensor and IoT service is handled by its own container to make a modular and extensible framework.
-As part of an IoT fleet of devices, the system can easily be managed and upgraded remotely.
+As part of an IoT fleet of devices, the system can easily be monitored, managed and upgraded remotely.
 
