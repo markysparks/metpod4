@@ -1,0 +1,28 @@
+FROM balenalib/%%BALENA_MACHINE_NAME%%-debian-python:3.7-buster-build
+
+# Set our working directory
+WORKDIR /usr/src/app
+
+# Copy requirements.txt first for better cache on later pushes
+COPY requirements.txt requirements.txt
+
+# pip install python deps from requirements.txt on the resin.io build server
+RUN pip3 install -r requirements.txt
+
+# This will copy all files in our root to the working directory in the container
+COPY . ./
+
+# Environmental variables are stated here for use when developing in 'local' mode.
+# In production the variables below will not be used but can be set with the Balena
+# dashboard. If these variables are not available the values used below will be set by
+# default in the application code.
+ENV PRESS_CORR=0.0
+ENV TEMP_CORR=0.0
+ENV HUMI_CORR=0.0
+ENV PTU300_ENABLE=true
+ENV PTU300_PORT=/dev/ttyUSB1
+ENV PTU300_BAUD=9600
+ENV PTU300_MODE=ascii
+
+# script to run when container starts up on the device
+CMD ["python3","-u","PTU300_service.py"]
